@@ -76,4 +76,4 @@ while (True) :
         else :
             print "Unrecognized command"
 
-print "thank you for useing the help session registration system"
+print "thank you for using the help session registration system"

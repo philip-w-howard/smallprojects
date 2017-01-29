@@ -2,12 +2,14 @@
 import socket
 import json
 import sys
+import datetime
 
 UDP_IP = "127.0.0.1"
 UDP_PORT = 5005
 
 MAX_PEOPLE = 10
 
+print "Help server starting at", datetime.datetime.now()
 print "UDP target IP:", UDP_IP
 print "UDP target port:", UDP_PORT
 
@@ -58,12 +60,10 @@ def proc_request(cmd, requester) :
     params = cmd.split()
     if len(params) < 1 :
         send_response("Empty command", requester)
-        return
     elif params[0] == "list" :
         sessions = read_file()
         response = json.dumps(sessions)
         send_response(response, requester)
-        return
     elif params[0] == "add" and len(params) > 2 :
         sessions = read_file()
         if params[1] in sessions :
@@ -101,7 +101,6 @@ def proc_request(cmd, requester) :
 
     else :
         send_response("Unknown command", requester)
-        return
 
 while True:
     data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
