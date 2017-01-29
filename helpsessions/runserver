@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+cd ~philip.howard/.projects/helpsessions
+whoami
+pwd
+for ii in `seq 100`; do
+    ./helpserver.py >> helpserver.log
+done
+
