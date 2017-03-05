@@ -5,7 +5,7 @@ import os
 import pwd
 
 UDP_IP = "127.0.0.1"
-UDP_PORT = 5005
+UDP_PORT = 5006
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # Internet UDP
 
 user = pwd.getpwuid( os.getuid() ).pw_name
@@ -18,13 +18,16 @@ def display_menu() :
 
     print ""
 
-    sock.sendto("list", (UDP_IP, UDP_PORT))
+    sock.sendto("list " + user, (UDP_IP, UDP_PORT))
     data, addr = sock.recvfrom(4096)
 
     sessions = json.loads(data)
+
     id = 0
     session_list = []
-    for session in sessions.keys() :
+    keylist =  sessions.keys()
+    keylist.sort()
+    for session in keylist :
         session_list.append(session)
         id += 1
         print id, ":", session
